@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Scientific Discoveries Timeline</title>
+  <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <style>
+    /* Base styles */
+    body {
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      background: #0b0c1e;
+      overflow-x: hidden;
+      color: #fff;
+      position: relative;
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      top: 0; left: 0; right: 0; bottom: 0;
+      background: linear-gradient(135deg, rgba(0,0,40,0.3), rgba(20,0,50,0.3));
+      z-index: -1;
+      animation: gradientMove 15s ease infinite alternate;
+    }
+
+    @keyframes gradientMove {
+      0% { background-position: 0% 50%; }
+      100% { background-position: 100% 50%; }
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    header {
+      background-color: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 20px;
+      animation: fadeIn 2s ease forwards;
+    }
+
+    nav {
+      background-color: rgba(0, 0, 0, 0.7);
+      text-align: center;
+      padding: 10px;
+      animation: fadeIn 2s ease forwards;
+      animation-delay: 1s;
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      padding: 10px 20px;
+      display: inline-block;
+      transition: 0.3s ease;
+    }
+
+    nav a:hover {
+      background-color: rgba(255, 255, 255, 0.2);
+      color: #FFD700;
+      transform: scale(1.1);
+    }
+
+    section {
+      margin: 20px;
+      padding: 20px;
+      background-color: rgba(255, 255, 255, 0.8);
+      color: #333;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+      opacity: 0;
+      animation: slideIn 1.5s ease-out forwards;
+      animation-delay: 2s;
+    }
+
+    section h2 {
+      color: #333;
+    }
+
+    ul {
+      line-height: 1.6;
+      list-style-type: none;
+      padding: 0;
+    }
+
+    i {
+      margin-right: 10px;
+      color: #444;
+    }
+
+    footer {
+      background-color: rgba(0, 0, 0, 0.7);
+      color: #fff;
+      text-align: center;
+      padding: 10px;
+      position: fixed;
+      width: 100%;
+      bottom: 0;
+    }
+
+    img {
+      display: block;
+      margin: 20px auto;
+      max-width: 100%;
+      height: auto;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      opacity: 0;
+      animation: fadeInImage 2s ease forwards;
+    }
+
+    .timeline {
+      position: relative;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 10px;
+    }
+
+    .timeline::after {
+      content: '';
+      position: absolute;
+      width: 6px;
+      background-color: #FFD700;
+      top: 0;
+      bottom: 0;
+      left: 50%;
+      margin-left: -3px;
+    }
+
+    .timeline-item {
+      padding: 10px;
+      position: relative;
+      width: 50%;
+      margin-bottom: 15px;
+      background-color: #fff;
+      border-radius: 6px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .timeline-item:nth-child(odd) {
+      left: 0;
+    }
+
+    .timeline-item:nth-child(even) {
+      left: 50%;
+    }
+
+    .timeline-item::before {
+      content: '\f111';
+      font-family: "FontAwesome";
+      font-size: 20px;
+      position: absolute;
+      top: 20px;
+      right: -10px;
+      background-color: #FFD700;
+      color: #fff;
+      border-radius: 50%;
+      padding: 10px;
+    }
+
+    .timeline-item h3 {
+      margin: 0;
+      color: #333;
+    }
+
+    .timeline-item p {
+      color: #555;
+    }
+
+    .timeline-item img {
+      max-width: 50px;
+      display: block;
+      margin: 10px 0;
+    }
+
+    @keyframes fadeIn {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    @keyframes slideIn {
+      0% { transform: translateY(100px); opacity: 0; }
+      100% { transform: translateY(0); opacity: 1; }
+    }
+
+    @keyframes fadeInImage {
+      0% { opacity: 0; }
+      100% { opacity: 1; }
+    }
+
+    /* Scroll to Top Button */
+    #topBtn {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background-color: #FFD700;
+      color: #000;
+      border: none;
+      padding: 10px 15px;
+      font-size: 1.2rem;
+      border-radius: 50%;
+      cursor: pointer;
+      display: none;
+      z-index: 1000;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+    }
+
+    #topBtn:hover {
+      background-color: #fff;
+      color: #0077ff;
+    }
+
+    #stars {
+      position: fixed;
+      top: 0; left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -2;
+      background: transparent;
+    }
+  </style>
+</head>
+<body>
+
+  <canvas id="stars"></canvas>
+
+  <header>
+    <h1><i class="fas fa-flask"></i> Timeline of Scientific Discoveries</h1>
+    <img src="https://assets.onecompiler.app/42uutqmvw/42uvc3m5t/2222.jpg" alt="Science Discoveries" height="100">
+  </header>
+
+  <nav>
+    <a href="#ancient"><i class="fas fa-history"></i> Ancient Discoveries</a>
+    <a href="#modern"><i class="fas fa-lightbulb"></i> Modern Discoveries</a>
+    <a href="#recent"><i class="fas fa-rocket"></i> Recent Discoveries</a>
+  </nav>
+
+  <section id="ancient">
+    <h2><i class="fas fa-landmark"></i> Ancient Discoveries</h2>
+    <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/ancientdisc.jpg" alt="Ancient Discoveries" width="100" height="200">
+    <ul class="timeline">
+      <li class="timeline-item">
+        <h3>3500 BC</h3>
+        <p><strong>Wheel</strong> - Invented in Mesopotamia, transforming transportation and engineering.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/wheeeels.jpg" alt="Ancient Wheel">
+      </li>
+      <li class="timeline-item">
+        <h3>Prehistoric</h3>
+        <p><strong>Fire</strong> - Early humans discovered how to control fire, leading to cooking and warmth.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/fire.avif" alt="Prehistoric Fire">
+      </li>
+      <li class="timeline-item">
+        <h3>500 BC</h3>
+        <p><strong>Pythagoras' Theorem</strong> - Ancient Greeks discovered fundamental principles in mathematics.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/pythogoras.jpg" alt="Pythagoras">
+      </li>
+      <li class="timeline-item">
+        <h3>1543</h3>
+        <p><strong>Heliocentric Theory</strong> - Nicolaus Copernicus proposed that the Earth revolves around the Sun.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/heliocentric.jpg" alt="Heliocentric Theory">
+      </li>
+    </ul>
+  </section>
+
+  <section id="modern">
+    <h2><i class="fas fa-lightbulb"></i> Modern Discoveries (16th to 20th Century)</h2>
+    <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/modern.jpg" alt="Modern Discoveries" width="100" height="100">
+    <ul class="timeline">
+      <li class="timeline-item">
+        <h3>1687</h3>
+        <p><strong>Gravity</strong> - Isaac Newton formulated the law of universal gravitation.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/gravity.jpg" alt="Gravity">
+      </li>
+      <li class="timeline-item">
+        <h3>18th Century</h3>
+        <p><strong>Electricity</strong> - Benjamin Franklin and others made foundational discoveries about electricity.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/electricity.jpg" alt="Electricity">
+      </li>
+      <li class="timeline-item">
+        <h3>1830</h3>
+        <p><strong>Darwin's Finches</strong> - Charles Darwin observed these finches on the HMS Beagle.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/drawin.jpg" alt="Darwin">
+      </li>
+      <li class="timeline-item">
+        <h3>1930</h3>
+        <p><strong>Geological Timescale</strong> - Holmes developed the first absolute geological timescale.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/timescale.jpg" alt="Timescale">
+      </li>
+      <li class="timeline-item">
+        <h3>1953</h3>
+        <p><strong>DNA Structure</strong> - Watson, Crick, and Franklin discovered the double helix.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/dna.jpg" alt="DNA">
+      </li>
+    </ul>
+  </section>
+
+  <section id="recent">
+    <h2><i class="fas fa-microscope"></i> Recent Discoveries (21st Century)</h2>
+    <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/recent.avif" alt="Recent Discoveries" width="100" height="100">
+    <ul class="timeline">
+      <li class="timeline-item">
+        <h3>2012</h3>
+        <p><strong>Higgs Boson</strong> - Discovered at CERN, explaining particle mass.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/higgs.jpg" alt="Higgs Boson">
+      </li>
+      <li class="timeline-item">
+        <h3>2015</h3>
+        <p><strong>Gravitational Waves</strong> - Detected by LIGO, confirming Einstein's theory.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/hndjdhka.jpg" alt="Gravitational Waves">
+      </li>
+      <li class="timeline-item">
+        <h3>2012</h3>
+        <p><strong>CRISPR</strong> - A revolutionary gene-editing technology.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/crispr.jpg" alt="CRISPR">
+      </li>
+      <li class="timeline-item">
+        <h3>2019</h3>
+        <p><strong>First Image of a Black Hole</strong> - Captured by Event Horizon Telescope.</p>
+        <img src="https://assets.onecompiler.app/42uutqmvw/42uutpw3r/holes.jpg" alt="Black Hole">
+      </li>
+    </ul>
+  </section>
+
+  <footer>© 2025 Timeline of Discoveries</footer>
+
+  <!-- Scroll to Top -->
+  <button id="topBtn" title="Go to top">↑</button>
+
+  <!-- Starry JS Background -->
+  <script>
+    const topBtn = document.getElementById("topBtn");
+    window.onscroll = () => {
+      topBtn.style.display = (document.body.scrollTop > 400 || document.documentElement.scrollTop > 400) ? "block" : "none";
+    };
+    topBtn.onclick = () => {
+      document.body.scrollTop = 0;
+      document.documentElement.scrollTop = 0;
+    };
+
+    const canvas = document.getElementById("stars");
+    const ctx = canvas.getContext("2d");
+    let stars = [];
+
+    function resizeCanvas() {
+      canvas.width = window.innerWidth;
+      canvas.height = window.innerHeight;
+    }
+
+    function createStars(count) {
+      stars = [];
+      for (let i = 0; i < count; i++) {
+        stars.push({
+          x: Math.random() * canvas.width,
+          y: Math.random() * canvas.height,
+          r: Math.random() * 1.5 + 0.5,
+          d: Math.random() * 0.5 + 0.2
+        });
+      }
+    }
+
+    function drawStars() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+      ctx.fillStyle = "#fff";
+      for (let s of stars) {
+        ctx.beginPath();
+        ctx.arc(s.x, s.y, s.r, 0, 2 * Math.PI);
+        ctx.fill();
+      }
+      moveStars();
+    }
+
+    function moveStars() {
+      for (let s of stars) {
+        s.y += s.d;
+        if (s.y > canvas.height) {
+          s.y = 0;
+          s.x = Math.random() * canvas.width;
+        }
+      }
+    }
+
+    function animateStars() {
+      drawStars();
+      requestAnimationFrame(animateStars);
+    }
+
+    window.addEventListener('resize', () => {
+      resizeCanvas();
+      createStars(150);
+    });
+
+    resizeCanvas();
+    createStars(150);
+    animateStars();
+  </script>
+
+</body>
+</html>
